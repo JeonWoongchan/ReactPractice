@@ -36,3 +36,99 @@
     transform: rotate(360deg);
   }
 }
+
+.search{
+  width: 300px;
+  margin: 40px 0 50px 50px;
+}
+
+.row{
+  float: left;
+  margin-top: 20px;
+}
+
+.row .box{
+  width: 300px;
+  padding: 15px;
+  background-color: white;
+  margin: 0 50px;
+}
+
+.box img{
+  width: 250px;
+  height: 250px;
+  border-radius: 5px;
+}
+
+.info{
+  margin-top: 10px;
+}
+
+.info #brand{
+  font-size: 15px;
+}
+
+.cart{
+  margin: 550px auto;
+  width: 1750px;
+  height: 100%;
+  background-color: rgb(204, 204, 204);
+  border: 0.1px solid;
+}
+
+
+.cartTitle{
+  font-size: 20px;
+  font-weight: bold;
+  margin-left: 30px;
+  margin-top: 10px;
+}
+
+.cart .area{
+  text-align: center;
+  height: 400px;
+  width: 1700px;
+  margin-left: 25px;
+  padding: 20px;
+  background-color: black;
+  border: 0.1px solid;
+  display: flex;
+}
+
+.area .box{
+  width: 200px;
+  height: 350px;
+  padding: 15px;
+  background-color: white;
+  margin-left: 20px;
+}
+
+.area .box img{
+  width: 150px;
+  height: 150px;
+}
+
+.area .box p{
+  margin-top: 10px;
+}
+
+.area .box h4{
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.cart .area h3{
+  height: 34px;
+  color: white;
+  margin-top: 200px;
+  margin: auto;
+}
+
+.cart .result{
+  margin: 20px;
+  padding: 10px;
+}
+
+.total h5{
+  font-weight: bold;
+}
