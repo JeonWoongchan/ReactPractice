@@ -12,6 +12,18 @@ function Cart(props){
     let dragProduct = useSelector((state)=> state.dragProduct);
     let dispatch = useDispatch();
 
+    const totalPrice = ()=>{
+        let result = 0;
+        if (!cartList || cartList.length === 0) { // state 비어있으면 map 안돌아감 -> 없으면 실행하지말라고 해줌 
+            return 0;
+        }
+        cartList.map((a,i)=>{
+            let price = a.count * a.price
+            result += price;
+        })
+        return result;
+    }
+
     const drop = (e)=>{
         if(cartList.length === 0){
             const updateDragProduct = {...dragProduct, count:1} // count 추가
@@ -49,8 +61,8 @@ function Cart(props){
             </div>
             <div className="result">
             <h5>최종가격</h5>
-            <h6>합계 : 0 원</h6>
-            <button className="buy btn btn-dark">결제하기</button>
+            <h6>{`합계 : ${totalPrice()} 원`}</h6>
+            <button className="buy btn btn-dark" onClick={()=>{props.setModal(true)}}>구매하기</button>
             </div> 
         </div>
     )

@@ -13,6 +13,7 @@ import {Container, Nav, Navbar, NavDropdown, Row, Form, Col, Button, InputGroup}
 import {Route, Routes, Link, useNavigate, Outlet} from 'react-router-dom';
 
 import { useSelector, useDispatch } from 'react-redux';
+import cartList from './store/cartListSlice';
 
 function App() {
   const reactStringReplace = require('react-string-replace'); //React String Replace 라이브러리
@@ -20,7 +21,7 @@ function App() {
   let product = useSelector((state)=> state.product)
   let dragProduct = useSelector((state)=> state.dragProduct)
   let [searchText, setSearchText] = useState('');//검색창 텍스트
-  let [cartList, setCartList] = useState([]);//장바구니 목록
+  let [modal, setModal] = useState(false); // 모달 출력 여부
 
   let dispatch = useDispatch();
   const dragItem = useRef(); // 리액트 드래그 이벤트 -> 어캐쓰는지 잘모르겠다
@@ -107,13 +108,67 @@ function App() {
           </div>
         </Container>
         <Container fluid className='cart'>
-          <Cart searchText={searchText} dragStart={dragStart} dragEnter={dragEnter} dragOver={dragOver}></Cart>
+          <Cart modal={modal} setModal={setModal} searchText={searchText} dragStart={dragStart} dragEnter={dragEnter} dragOver={dragOver}></Cart>
         </Container>
         </>
       }/> 
     </Routes>
+    {
+      modal == true ? <Modal modal={modal} setModal={setModal} ></Modal> : null
+    }   
     </div>
   );
+}
+
+function Modal(props){
+  let cartList = useSelector((state)=> state.cartList)
+  let [name, setName] = useState('');
+  let [tel, setTel] = useState('');
+  let [receipt, setReceipt] = useState(false); // 영수증 출력 여부
+  
+
+  return(
+    <div className="modal1">
+      <div className="white-bg">
+        {
+          receipt == true ? 
+          <form action="#">
+              구매자 정보
+              <div className="my-3">
+                  성함 : {name}
+              </div>
+              <div className="my-3">
+                  연락처 : {tel}
+              </div>
+              {
+                cartList.map((a,i)=>{
+                  return (
+                    <div>
+                      {a.title} {a.price} {a.count}
+                    </div>
+                  );
+                })
+                
+              }
+              
+              <button type="button" className="btn btn-danger close" id="close" onClick={()=>{props.setModal(false)}}>닫기</button>
+          </form> 
+          :
+          <form action="#">
+            구매자 정보 입력
+            <div className="my-3">
+                성함<input type="text" id="inputName" className="form-control input1" onChange={(e)=>{setName(e.target.value)}}/>
+            </div>
+            <div className="my-3">
+                연락처<input type="text" id="inputTel" className="form-control input2" onChange={(e)=>{setTel(e.target.value)}}/>
+            </div>
+            <button type="submit" className="btn btn-primary" id="send" onClick={()=>{setReceipt(true)}}>입력완료</button>
+            <button type="button" className="btn btn-danger close" id="close" onClick={()=>{props.setModal(false)}}>닫기</button>
+        </form>
+        }
+      </div>
+  </div>
+  )
 }
 
 export default App;

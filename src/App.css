@@ -132,3 +132,46 @@
 .total h5{
   font-weight: bold;
 }
+
+
+.modal1{
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  z-index: 5;
+  padding: 30px;
+  left: 0;
+  top: 0;
+  background-color: rgba(0,0,0,0.4); 
+  opacity: 1;
+  transition: all 0.5s;
+}
+
+.modal2{
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  z-index: 5;
+  padding: 30px;
+  left: 0;
+  top: 0;
+  background-color: rgba(0,0,0,0.4); 
+  display: none;
+}
+
+.white-bg{
+  position: relative;
+  padding: 15px;
+  box-sizing: border-box;
+  border-radius: 15px;
+  width: 300px;
+  margin: auto;
+  top: 200px;
+  background: #ffffff;
+  box-shadow: 7px 7px 5px rgba(0, 0, 0, 0.2);
+}
+
+.show-modal{
+  visibility: visible;
+  opacity: 1;
+}
