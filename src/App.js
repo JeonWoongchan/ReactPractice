@@ -1,10 +1,8 @@
-import logo from './logo.svg';
 import data from './store/store.json'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
 import Products from './Products.js';
 import Cart from './Cart.js';
-import axios from 'axios'
 
 import { setProduct } from './store/productSlice';
 import { setDragProduct } from './store/store';
@@ -13,23 +11,30 @@ import {Container, Nav, Navbar, NavDropdown, Row, Form, Col, Button, InputGroup}
 import {Route, Routes, Link, useNavigate, Outlet} from 'react-router-dom';
 
 import { useSelector, useDispatch } from 'react-redux';
-import cartList from './store/cartListSlice';
 
 function App() {
-  const reactStringReplace = require('react-string-replace'); //React String Replace 라이브러리
   
   let product = useSelector((state)=> state.product)
+  let cartList = useSelector((state)=> state.cartList)
   let dragProduct = useSelector((state)=> state.dragProduct)
   let [searchText, setSearchText] = useState('');//검색창 텍스트
   let [modal, setModal] = useState(false); // 모달 출력 여부
 
   let dispatch = useDispatch();
-  const dragItem = useRef(); // 리액트 드래그 이벤트 -> 어캐쓰는지 잘모르겠다
-  const dragOverItem = useRef();
-
-  let dragData = '';
 
   // console.log(data.products)
+
+  const totalPrice = ()=>{
+    let result = 0;
+    if (!cartList || cartList.length === 0) { // state 비어있으면 map 안돌아감 -> 없으면 실행하지말라고 해줌 
+        return 0;
+    }
+    cartList.map((a,i)=>{
+        let price = a.count * a.price
+        result += price;
+    })
+    return result;
+  }
 
   useEffect(()=>{ // 검색기능
     let arr = [];
@@ -47,7 +52,6 @@ function App() {
         dispatch(setDragProduct(a))
       }   
     })
-    console.log(dragProduct)
   }
 
   const dragEnter = (e)=>{
@@ -108,13 +112,13 @@ function App() {
           </div>
         </Container>
         <Container fluid className='cart'>
-          <Cart modal={modal} setModal={setModal} searchText={searchText} dragStart={dragStart} dragEnter={dragEnter} dragOver={dragOver}></Cart>
+          <Cart modal={modal} setModal={setModal} totalPrice={totalPrice} searchText={searchText} dragStart={dragStart} dragEnter={dragEnter} dragOver={dragOver}></Cart>
         </Container>
         </>
       }/> 
     </Routes>
     {
-      modal == true ? <Modal modal={modal} setModal={setModal} ></Modal> : null
+      modal == true ? <Modal modal={modal} setModal={setModal} totalPrice={totalPrice} ></Modal> : null
     }   
     </div>
   );
@@ -148,8 +152,8 @@ function Modal(props){
                     </div>
                   );
                 })
-                
               }
+              <div>{`합계 : ${props.totalPrice()} 원`}</div>
               
               <button type="button" className="btn btn-danger close" id="close" onClick={()=>{props.setModal(false)}}>닫기</button>
           </form> 

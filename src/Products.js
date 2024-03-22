@@ -5,16 +5,13 @@ import axios from 'axios'
 import reactStringReplace from 'react-string-replace';
 
 import React, {useState, useEffect} from 'react'
-import {Container, Nav, Navbar, NavDropdown, Row, Form, Col, Button, InputGroup} from 'react-bootstrap';
 import { setCartList, addProduct, changeCount, Add } from './store/cartListSlice';
-import {Route, Routes, Link, useNavigate, Outlet} from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 
 
 function Products(props) {
     let product = useSelector((state)=> state.product)
     let cartList = useSelector((state)=> state.cartList);
-    let dragProduct = useSelector((state)=> state.dragProduct)
     let dispatch = useDispatch();
 
     const Add = (e)=>{

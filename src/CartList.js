@@ -6,8 +6,6 @@ import reactStringReplace from 'react-string-replace';
 
 
 import React, {useState, useEffect} from 'react'
-import {Container, Nav, Navbar, NavDropdown, Row, Form, Col, Button, InputGroup} from 'react-bootstrap';
-import {Route, Routes, Link, useNavigate, Outlet} from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { deleteProduct, addCount, subtractCount } from './store/cartListSlice';
 

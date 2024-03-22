@@ -1,9 +1,7 @@
 import React from "react";
 import CartProducts from './CartList'
 
-import { useState, useEffect, useRef } from 'react'
 import { setCartList, addProduct, changeCount } from './store/cartListSlice';
-import { setDragProduct } from './store/store';
 import { useSelector, useDispatch } from 'react-redux';
 
 
@@ -11,18 +9,6 @@ function Cart(props){
     let cartList = useSelector((state)=> state.cartList);
     let dragProduct = useSelector((state)=> state.dragProduct);
     let dispatch = useDispatch();
-
-    const totalPrice = ()=>{
-        let result = 0;
-        if (!cartList || cartList.length === 0) { // state 비어있으면 map 안돌아감 -> 없으면 실행하지말라고 해줌 
-            return 0;
-        }
-        cartList.map((a,i)=>{
-            let price = a.count * a.price
-            result += price;
-        })
-        return result;
-    }
 
     const drop = (e)=>{
         if(cartList.length === 0){
@@ -61,7 +47,7 @@ function Cart(props){
             </div>
             <div className="result">
             <h5>최종가격</h5>
-            <h6>{`합계 : ${totalPrice()} 원`}</h6>
+            <h6>{`합계 : ${props.totalPrice()} 원`}</h6>
             <button className="buy btn btn-dark" onClick={()=>{props.setModal(true)}}>구매하기</button>
             </div> 
         </div>
